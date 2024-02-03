@@ -13,3 +13,8 @@
     font-size: 18px;
     padding: 14px 16px;
   }
+
+  .portfolioimg {
+    max-width: 200px;
+    max-height: 200px;
+  }
