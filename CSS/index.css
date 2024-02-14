@@ -9,7 +9,12 @@ grey: #eeeeee
 
 body {
   background-color: #000000;
+  text-align: center;
 }
+
+/* .row {
+  background-color: #4E4FEB;
+} */
 
 
 
