@@ -39,9 +39,21 @@ body {
   max-height: 200px;
 }
 
-/* <uniquifier>: Use a uniquifier for the class name
-  <weight>: Use a value from 400 to 900
-   */
+h1 {
+  color: #eeeeee;
+}
+
+h2 {
+  color: #eeeeee;
+}
+
+h3 {
+  color: #eeeeee;
+}
+
+h4 {
+  color: #eeeeee;
+}
 
 p {
   color: #eeeeee;
