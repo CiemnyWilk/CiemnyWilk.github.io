@@ -18,3 +18,11 @@
     max-width: 200px;
     max-height: 200px;
   }
+
+   /* <uniquifier>: Use a uniquifier for the class name
+  <weight>: Use a value from 400 to 900
+   */
+
+  * {
+    font-family: "Noto Sans JP", sans-serif;
+  }
