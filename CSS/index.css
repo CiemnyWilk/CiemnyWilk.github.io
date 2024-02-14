@@ -1,28 +1,47 @@
+/*coloring for webpage is:
+https://colorhunt.co/palette/0000004e4feb068fffeeeeee
+Black: #000000
+Blue: #4e4feb
+Lighter blue: #068fff
+grey: #eeeeee
+*/
+
+
+body {
+  background-color: #000000;
+}
+
+
+
 .topnav {
-    overflow: hidden;
-    background-color: #333;
-  }
-  
-  .topnav a:hover {
-    background-color: #4682B4;
-  }
-  
-  .topnav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 14px 16px;
-  }
+  overflow: hidden;
+  background-color: #333;
+}
 
-  .portfolioimg {
-    max-width: 200px;
-    max-height: 200px;
-  }
+.topnav a:hover {
+  background-color: #4682B4;
+}
 
-   /* <uniquifier>: Use a uniquifier for the class name
+.topnav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 14px 16px;
+}
+
+.portfolioimg {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+/* <uniquifier>: Use a uniquifier for the class name
   <weight>: Use a value from 400 to 900
    */
 
-  * {
-    font-family: "Noto Sans JP", sans-serif;
-  }
+p {
+  color: #eeeeee;
+}
+
+* {
+  font-family: "Noto Sans JP", sans-serif;
+}
