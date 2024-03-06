@@ -34,6 +34,15 @@ body {
   padding: 14px 16px;
 }
 
+.gameborder {
+  border: 2px solid gray;
+  border-radius: 5px;
+}
+
+.clickablediv {
+  display: block;
+}
+
 .portfolioimg {
   max-width: 400px;
   max-height: 400px;
