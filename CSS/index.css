@@ -39,6 +39,12 @@ body {
   max-height: 400px;
 }
 
+.gameimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 h1 {
   color: #eeeeee;
 }
