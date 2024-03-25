@@ -54,6 +54,17 @@ body {
   margin-right: auto;
 }
 
+.treeimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rightfloat{
+  float: right;
+
+}
+
 h1 {
   color: #eeeeee;
 }
