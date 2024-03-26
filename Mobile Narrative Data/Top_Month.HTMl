@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/94ff71bc24.js" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <link rel="stylesheet" href="CSS\style.css">
+    <title>Top Month</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+                <img id="top_nav_image" src="Images\destiny-2-season-of-the-wish-promo-image.webp"
+                    alt="Destiny 2 Promo Photo">
+                <div class="topnav">
+                    <a href="Home.HTML">Home <i class="fa-solid fa-house"></i></a>
+                    <a href="Top_Month.HTMl">Top Month <i class="fa-solid fa-calendar"></i></a>
+                    <a href="Top_All_Time.HTML">Top All Time <i class="fa-solid fa-infinity"></i></a>
+                    <a href="Conclusion.HTML">Conclusion <i class="fa-solid fa-book-open"></i></a>
+                    <a href="Data_Used.HTML">Data used <i class="fa-solid fa-list"></i></i></a>
+                </div>
+                <h1>Top Month</h1>
+                <p>
+                    When it comes to the Top Month data I collected you can see that Destiny 2 subreddit gets more
+                    upvotes on average than Destiny the Game but Destiny the Game tends to have more comments per post
+                    than Destiny 2 as seen in the graph below.
+                </p>
+                <h2>
+                    Density Plot of Upvotes and Comments for Top Month
+                </h2>
+                <!-- Create a div where the graph will take place -->
+                <div class="responsive-d3" id="my_dataviz"></div>
+                <script>
+
+                    // set the dimensions and margins of the graph
+                    var margin = { top: 10, right: 30, bottom: 40, left: 50 },
+                        width = 520 - margin.left - margin.right,
+                        height = 520 - margin.top - margin.bottom;
+
+                    // append the svg object to the body of the page
+                    var svg = d3.select("#my_dataviz")
+                        .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform",
+                            "translate(" + margin.left + "," + margin.top + ")")
+
+                    // Add the grey background that makes ggplot2 famous
+                    svg
+                        .append("rect")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .attr("height", height)
+                        .attr("width", height)
+                        .style("fill", "#d3d3d3")
+
+                    //Read the data
+                    //d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/iris.csv", function (data) {
+                    const Data = [
+                        {
+                            Date: "9/20/23",
+                            About: "Meme/Humor",
+                            Upvotes: 4000,
+                            Comments: 359,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16nak3e/my_friend_sent_me_this_and_i_dont_know_what_it_is/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "9/21/23",
+                            About: "Art/Fashion",
+                            Upvotes: 3500,
+                            Comments: 73,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16opiwu/warlock_when_final_shape_launches/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "9/24/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3400,
+                            Comments: 96,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16rgmkt/they_cant_keep_getting_away_with_thiiiiiiis/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/03/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3400,
+                            Comments: 505,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16z04wu/bungie_arent_the_only_ones_doing_this_btw/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/02/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3300,
+                            Comments: 30,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16yi102/does_bungie_even_know_what_theyve_done/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "9/25/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3300,
+                            Comments: 31,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16sao5a/credit_to_destiny_thememe_on_twitter/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/03/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3200,
+                            Comments: 113,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16zmedw/i_mean_seriously/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/02/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3200,
+                            Comments: 592,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16yqc26/even_twitter_knows_its_wrong/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "9/26/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3100,
+                            Comments: 74,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16stx8m/this_is_toptier_trolling/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/04/23",
+                            About: "Media",
+                            Upvotes: 3000,
+                            Comments: 105,
+                            Link: "https://www.reddit.com/r/destiny2/comments/170i71l/not_sure_if_everyone_noticed_this_but_the_sword/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "9/18/23",
+                            About: "Meme/Humor",
+                            Upvotes: 3000,
+                            Comments: 326,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16lxvzk/at_least_they_had_fun/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/06/23",
+                            About: "Media",
+                            Upvotes: 3000,
+                            Comments: 114,
+                            Link: "https://www.reddit.com/r/destiny2/comments/171v6hz/did_lord_shaxx_do_something_to_the_crucible_that/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/01/23",
+                            About: "Media",
+                            Upvotes: 2900,
+                            Comments: 255,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16x6j1m/apparently_this_is_a_thing_now_this_is_not_my/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/12/23",
+                            About: "Tips/Hints",
+                            Upvotes: 2700,
+                            Comments: 540,
+                            Link: "https://www.reddit.com/r/destiny2/comments/176cxqp/psa_dont_buy_always_on_time/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/12/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2700,
+                            Comments: 108,
+                            Link: "https://www.reddit.com/r/destiny2/comments/176v99a/twab/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/18/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2700,
+                            Comments: 87,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16mrfw9/comic_soalternative_forms_of_payment_eh/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/23/23",
+                            About: "Discussion",
+                            Upvotes: 2700,
+                            Comments: 237,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16r53b8/size_differences/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/20/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2700,
+                            Comments: 289,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16nozj0/it_was_him_all_along/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/16/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2600,
+                            Comments: 444,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16kwrbt/unpopular_opinion_this_weekend_has_been_the/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/16/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2600,
+                            Comments: 140,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16l4jbo/farewell_for_now/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "10/8/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2500,
+                            Comments: 78,
+                            Link: "https://www.reddit.com/r/destiny2/comments/173c31b/rolled_into_trials_solo_ended_up_with_henchmen/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/21/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2500,
+                            Comments: 140,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16ovuoo/acting_like_my_brother_here/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/16/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2400,
+                            Comments: 40,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16lfcni/videos_already_in_production/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/25/23",
+                            About: "Meme/Humor",
+                            Upvotes: 2400,
+                            Comments: 85,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16s746m/something_something_servers/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/16/23",
+                            About: "Discussion",
+                            Upvotes: 2400,
+                            Comments: 387,
+                            Link: "https://www.reddit.com/r/destiny2/comments/16lknj1/the_fun_guns_appear_to_be_officially_over/",
+                            Subreddit: "Destiny 2"
+                        },
+                        {
+                            Date: "09/19/23",
+                            About: "Discussion",
+                            Upvotes: 2900,
+                            Comments: 372,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16my5hk/using_x_for_game_status_notifications_is_stupid/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/16/23",
+                            About: "Discussion",
+                            Upvotes: 2200,
+                            Comments: 147,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/178zb24/the_giga_chad_guardian/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/16/23",
+                            About: "Suggestion",
+                            Upvotes: 2100,
+                            Comments: 434,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16lno46/joe_blackburn_please_please_refrain_from_asking/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/11/23",
+                            About: "Suggestion",
+                            Upvotes: 2000,
+                            Comments: 436,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/175jnee/bungie_if_you_nerf_conditional_finality_because/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/25/23",
+                            About: "MISC",
+                            Upvotes: 2000,
+                            Comments: 275,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16spkjd/i_cant_believe_the_one_class_that_gets_a_flaming/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/01/23",
+                            About: "Discussion",
+                            Upvotes: 1900,
+                            Comments: 708,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16xcu02/why_does_bungie_think_the_games_economy_will_only/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/03/23",
+                            About: "Discussion",
+                            Upvotes: 1800,
+                            Comments: 211,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16zjwsc/the_ingame_bungie_store_prompts_are_trashy/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/21/23",
+                            About: "Lore",
+                            Upvotes: 1800,
+                            Comments: 156,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16ou6zg/i_think_eris_being_god_of_vengeance_is_more/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/29/23",
+                            About: "Discussion",
+                            Upvotes: 1700,
+                            Comments: 620,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16w62ah/legendary_shard_removal_seems_really_silly_based/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/04/23",
+                            About: "MISC",
+                            Upvotes: 1700,
+                            Comments: 358,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/170h33x/there_is_not_a_better_feeling_in_this_game_than/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/07/23",
+                            About: "Discussion",
+                            Upvotes: 1700,
+                            Comments: 369,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/172nm0p/i_just_did_my_first_last_wish_and_wtf_now_thats/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/12/23",
+                            About: "Guide",
+                            Upvotes: 1600,
+                            Comments: 547,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/176d5gp/a_megasummary_of_things_from_joes_stream_today/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/22/23",
+                            About: "MISC",
+                            Upvotes: 1600,
+                            Comments: 685,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16pldbz/its_happening_again/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/05/23",
+                            About: "Discussion",
+                            Upvotes: 1500,
+                            Comments: 202,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/170vuxn/spoiler_whatever_your_thoughts_on_this_seasons/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/02/23",
+                            About: "Suggestion",
+                            Upvotes: 1500,
+                            Comments: 165,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16y6hvc/being_forced_into_a_cutscene_mission_when_opening/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/15/23",
+                            About: "Suggestion",
+                            Upvotes: 1500,
+                            Comments: 123,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/178kvxl/chill_clip_shouldnt_get_a_global_nerf_because_of/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/17/23",
+                            About: "Discussion",
+                            Upvotes: 1400,
+                            Comments: 493,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16lleqf/thanks_bungie/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/04/23",
+                            About: "Discussion",
+                            Upvotes: 1400,
+                            Comments: 195,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16zyy0g/if_strand_is_going_with_the_river_and_stasis_is/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/01/23",
+                            About: "MISC",
+                            Upvotes: 1300,
+                            Comments: 342,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16xv4ex/please_dont_put_a_t3_offering_in_if_we_just/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "10/04/23",
+                            About: "Discussion",
+                            Upvotes: 1300,
+                            Comments: 284,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16zthx5/can_we_just_take_a_moment_to_reflect_on_the_huge/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/23/23",
+                            About: "Discussion",
+                            Upvotes: 1300,
+                            Comments: 1900,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16q9tju/what_games_are_you_playing_now_that_d2_is/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/17/23",
+                            About: "Discussion",
+                            Upvotes: 1300,
+                            Comments: 476,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16l5ve7/with_marvels_avengers_being_deleted_it_really/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/30/23",
+                            About: "Discussion",
+                            Upvotes: 1200,
+                            Comments: 467,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16x2a5u/wannabe_sweats_are_making_lamps_the_hardest_crota/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/17/23",
+                            About: "Suggestion",
+                            Upvotes: 1200,
+                            Comments: 104,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16lk55t/this_and_the_12_man_raids_have_highlighted_a_lack/",
+                            Subreddit: "Destiny the Game"
+                        },
+                        {
+                            Date: "09/24/23",
+                            About: "Discussion",
+                            Upvotes: 1200,
+                            Comments: 285,
+                            Link: "https://www.reddit.com/r/DestinyTheGame/comments/16rsnzl/i_still_miss_elemental_wells_charged_with_light/",
+                            Subreddit: "Destiny the Game"
+                        }
+                    ];
+
+                    // Add X axis
+                    var x = d3.scaleLinear()
+                        .domain([0, 700])
+                        .range([0, width])
+                    svg.append("g")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x).tickSize(-height * 1.3).ticks(10))
+                        .select(".domain").remove()
+
+                    // Add Y axis
+                    var y = d3.scaleLinear()
+                        .domain([1000, 4500])
+                        .range([height, 0])
+                        .nice()
+                    svg.append("g")
+                        .call(d3.axisLeft(y).tickSize(-width * 1.3).ticks(7))
+                        .select(".domain").remove()
+
+                    // Customization
+                    svg.selectAll(".tick line").attr("stroke", "Black")
+
+                    // Add X axis label:
+                    svg.append("text")
+                        .attr("text-anchor", "end")
+                        .attr("x", width / 2 + margin.left)
+                        .attr("y", height + margin.top + 20)
+                        .text("Comments");
+
+                    // Y axis label:
+                    svg.append("text")
+                        .attr("text-anchor", "end")
+                        .attr("transform", "rotate(-90)")
+                        .attr("y", -margin.left + 20)
+                        .attr("x", -margin.top - height / 2 + 20)
+                        .text("Upvotes")
+
+                    // Color scale: give me a specie name, I return a color
+                    var color = d3.scaleOrdinal()
+                        .domain(["Destiny 2", "Destiny the Game"])
+                        .range(["#F8766D", "#00BA38"])
+
+                    // create a tooltip
+                    var Tooltip = d3.select("#my_dataviz")
+                        .append("div")
+                        .style("opacity", 0)
+                        .attr("class", "tooltip")
+                        .style("background-color", "white")
+                        .style("border", "solid")
+                        .style("border-width", "2px")
+                        .style("border-radius", "5px")
+                        .style("padding", "5px")
+                        .style("position", "absolute")
+
+                    // Three function that change the tooltip when user hover / move / leave a cell
+                    var mouseover = function (d) {
+                        Tooltip
+                            .style("opacity", 1)
+                        d3.select(this)
+                            .style("stroke", "black")
+                            .style("opacity", 1)
+                    }
+                    var mousemove = function (d) {
+                        // broken but talked with jack and oked it
+                        // Get the current mouse coordinates
+                        var mouseX = d3.event.pageX;
+                        var mouseY = d3.event.pageY;
+
+                        // Get the width and height of the tooltip
+                        var tooltipWidth = Tooltip.node().offsetWidth;
+                        var tooltipHeight = Tooltip.node().offsetHeight;
+
+                        // Set an offset value for padding
+                        var offset = 10;
+
+                        // Calculate the adjusted left and top positions
+                        var adjustedLeft = mouseX + offset;
+                        var adjustedTop = mouseY + offset;
+
+                        // Check if the tooltip exceeds the right edge of the window
+                        if (adjustedLeft + tooltipWidth > window.innerWidth) {
+                            adjustedLeft = window.innerWidth - tooltipWidth - offset;
+                        }
+
+                        // Check if the tooltip exceeds the bottom edge of the window
+                        if (adjustedTop + tooltipHeight > window.innerHeight) {
+                            adjustedTop = window.innerHeight - tooltipHeight - offset;
+                        }
+                        Tooltip
+                            .html("<p class='center'>This Post Was a " + d.About + " post and was posted in the " + d.Subreddit + " Subreddit. It had " + d.Upvotes + " Upvotes with " + d.Comments + " Comments.</p>")
+                            .style("left", Math.max(offset, adjustedLeft) + "px") // Ensure it's not less than the offset
+                            .style("top", Math.max(offset, adjustedTop) + "px")
+                    }
+                    var mouseleave = function (d) {
+                        Tooltip
+                            .style("opacity", 0)
+                        d3.select(this)
+                            .style("fill", function (d) { return color(d.Subreddit) })
+                            .attr("stroke", "black")
+                    }
+
+                    // Add dots
+                    svg.append('g')
+                        .selectAll("dot")
+                        .data(Data)
+                        .enter()
+                        .append("circle")
+                        .attr("cx", function (d) { return x(d.Comments); })
+                        .attr("cy", function (d) { return y(d.Upvotes); })
+                        .attr("r", 5)
+                        .style("fill", function (d) { return color(d.Subreddit) })
+                        .attr("stroke", "black")
+                        .on("mouseover", mouseover)
+                        .on("mousemove", mousemove)
+                        .on("mouseleave", mouseleave)
+
+
+                </script>
+                <p>
+                    This is probably due to most of the Destiny 2 posts being mostly Meme/Humor posts vs Destiny the
+                    Game mostly being discussions.
+                </p>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

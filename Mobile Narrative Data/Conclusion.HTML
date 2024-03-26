@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/94ff71bc24.js" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <link rel="stylesheet" href="CSS\style.css">
+    <title>Conclusion</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+                <img id="top_nav_image" src="Images\destiny-2-season-of-the-wish-promo-image.webp"
+                    alt="Destiny 2 Promo Photo">
+                <div class="topnav">
+                    <a href="Home.HTML">Home <i class="fa-solid fa-house"></i></a>
+                    <a href="Top_Month.HTMl">Top Month <i class="fa-solid fa-calendar"></i></a>
+                    <a href="Top_All_Time.HTML">Top All Time <i class="fa-solid fa-infinity"></i></a>
+                    <a href="Conclusion.HTML">Conclusion <i class="fa-solid fa-book-open"></i></a>
+                    <a href="Data_Used.HTML">Data used <i class="fa-solid fa-list"></i></i></a>
+                </div>
+                <h1>Conclusion</h1>
+                <p>Based on the data previously shown you couldn’t say that one Subreddit is used more than the other as
+                    Destiny 2 is used for smaller posts and gets more foot traffic day to day but Destiny The Game is
+                    used for bigger news or for late game stuff that not as many people may use Because of this I have
+                    made another graph that compares the amount of a type of post each Subreddit has. The post type will
+                    be the same color but if you hover over the circle it will state which subreddit it came from.
+                </p>
+                <h2>Comparison of Posts</h2>
+                <!-- Create a div where the graph will take place -->
+                <div class="responsive-d3" id="my_dataviz"></div>
+                <script>
+
+                    // set the dimensions and margins of the graph
+                    var width = 460
+                    var height = 460
+
+                    // append the svg object to the body of the page
+                    var svg = d3.select("#my_dataviz")
+                        .append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
+
+                    // Read data
+                    const data = [
+                        {
+                            "About": "Meme/humor",
+                            "Subreddit": "Destiny 2",
+                            "value": 37
+                        },
+                        {
+                            "About": "Art/fashion",
+                            "Subreddit": "Destiny 2",
+                            "value": 1
+                        },
+                        {
+                            "About": "Media",
+                            "Subreddit": "Destiny 2",
+                            "value": 9
+                        },
+                        {
+                            "About": "Tips/Hints",
+                            "Subreddit": "Destiny 2",
+                            "value": 1
+                        },
+                        {
+                            "About": "Discussion",
+                            "Subreddit": "Destiny 2",
+                            "value": 2
+                        },
+                        {
+                            "About": "Suggestion",
+                            "Subreddit": "Destiny 2",
+                            "value": 0
+                        },
+                        {
+                            "About": "Lore",
+                            "Subreddit": "Destiny 2",
+                            "value": 0
+                        },
+                        {
+                            "About": "Guide",
+                            "Subreddit": "Destiny 2",
+                            "value": 0
+                        },
+                        {
+                            "About": "Bungie",
+                            "Subreddit": "Destiny 2",
+                            "value": 0
+                        },
+                        {
+                            "About": "News",
+                            "Subreddit": "Destiny 2",
+                            "value": 0
+                        },
+                        {
+                            "About": "MISC",
+                            "Subreddit": "Destiny 2",
+                            "value": 0
+                        },
+                        {
+                            "About": "Discussion",
+                            "Subreddit": "Destiny the Game",
+                            "value": 14
+                        },
+                        {
+                            "About": "Suggestion",
+                            "Subreddit": "Destiny the Game",
+                            "value": 9
+                        },
+                        {
+                            "About": "MISC",
+                            "Subreddit": "Destiny the Game",
+                            "value": 8
+                        },
+                        {
+                            "About": "Lore",
+                            "Subreddit": "Destiny the Game",
+                            "value": 1
+                        },
+                        {
+                            "About": "Guide",
+                            "Subreddit": "Destiny the Game",
+                            "value": 1
+                        },
+                        {
+                            "About": "Bungie",
+                            "Subreddit": "Destiny the Game",
+                            "value": 5
+                        },
+                        {
+                            "About": "News",
+                            "Subreddit": "Destiny the Game",
+                            "value": 2
+                        },
+                        {
+                            "About": "Meme/humor",
+                            "Subreddit": "Destiny the Game",
+                            "value": 9
+                        },
+                        {
+                            "About": "Art/fashion",
+                            "Subreddit": "Destiny the Game",
+                            "value": 0
+                        },
+                        {
+                            "About": "Media",
+                            "Subreddit": "Destiny the Game",
+                            "value": 0
+                        },
+                        {
+                            "About": "Tips/Hints",
+                            "Subreddit": "Destiny the Game",
+                            "value": 0
+                        }
+                    ];
+
+
+                    // Color palette for continents?
+                    var color = d3.scaleOrdinal()
+                        .domain(["Tips/Hints", "Media", "Art/fashion", "Meme/humor", "News", "Bungie", "Guide", "Lore", "MISC", "Suggestion", "Discussion"])
+                        .range(d3.schemeSet1);
+
+                    // Size scale for countries
+                    var size = d3.scaleLinear()
+                        .domain([0, 40])
+                        .range([10, 80])  // circle will be between 7 and 55 px wide
+
+                    // create a tooltip
+                    var Tooltip = d3.select("#my_dataviz")
+                        .append("div")
+                        .style("opacity", 0)
+                        .attr("class", "tooltip")
+                        .style("background-color", "white")
+                        .style("border", "solid")
+                        .style("border-width", "2px")
+                        .style("border-radius", "5px")
+                        .style("padding", "5px")
+                        .style("position", "absolute")
+
+                    // Three function that change the tooltip when user hover / move / leave a cell
+                    var mouseover = function (d) {
+                        Tooltip
+                            .style("opacity", 1)
+                    }
+                    var mousemove = function (d) {
+                        // Get the current mouse coordinates
+                        var mouseX = d3.event.pageX;
+                        var mouseY = d3.event.pageY;
+
+                        // Get the width and height of the tooltip
+                        var tooltipWidth = Tooltip.node().offsetWidth;
+                        var tooltipHeight = Tooltip.node().offsetHeight;
+
+                        // Set an offset value for padding
+                        var offset = 10;
+
+                        // Calculate the adjusted left and top positions
+                        var adjustedLeft = mouseX + offset;
+                        var adjustedTop = mouseY + offset;
+
+                        // Check if the tooltip exceeds the right edge of the window
+                        if (adjustedLeft + tooltipWidth > window.innerWidth) {
+                            adjustedLeft = window.innerWidth - tooltipWidth - offset;
+                        }
+
+                        // Check if the tooltip exceeds the bottom edge of the window
+                        if (adjustedTop + tooltipHeight > window.innerHeight) {
+                            adjustedTop = window.innerHeight - tooltipHeight - offset;
+                        }
+                        Tooltip
+                            .html('<u>' + d.Subreddit + '</u>' + "<br>" + d.value + " " + d.About + " posts")
+                            .style("left", Math.max(offset, adjustedLeft) + "px") // Ensure it's not less than the offset
+                            .style("top", Math.max(offset, adjustedTop) + "px")
+                    }
+                    var mouseleave = function (d) {
+                        Tooltip
+                            .style("opacity", 0)
+                    }
+
+                    // Initialize the circle: all located at the center of the svg area
+                    var node = svg.append("g")
+                        .selectAll("circle")
+                        .data(data)
+                        .enter()
+                        .append("circle")
+                        .attr("class", "node")
+                        .attr("r", function (d) { return size(d.value) })
+                        .attr("cx", width / 2)
+                        .attr("cy", height / 2)
+                        .style("fill", function (d) { return color(d.About) })
+                        .style("fill-opacity", 0.8)
+                        .attr("stroke", "black")
+                        .style("stroke-width", 1)
+                        .on("mouseover", mouseover) // What to do when hovered
+                        .on("mousemove", mousemove)
+                        .on("mouseleave", mouseleave)
+                        .call(d3.drag() // call specific function when circle is dragged
+                            .on("start", dragstarted)
+                            .on("drag", dragged)
+                            .on("end", dragended));
+
+                    // Features of the forces applied to the nodes:
+                    var simulation = d3.forceSimulation()
+                        .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
+                        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+                        .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.value) + 3) }).iterations(1)) // Force that avoids circle overlapping
+
+                    // Apply these forces to the nodes and update their positions.
+                    // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
+                    simulation
+                        .nodes(data)
+                        .on("tick", function (d) {
+                            node
+                                .attr("cx", function (d) { return d.x; })
+                                .attr("cy", function (d) { return d.y; })
+                        });
+
+                    // What happens when a circle is dragged?
+                    function dragstarted(d) {
+                        if (!d3.event.active) simulation.alphaTarget(.03).restart();
+                        d.fx = d.x;
+                        d.fy = d.y;
+                    }
+                    function dragged(d) {
+                        d.fx = d3.event.x;
+                        d.fy = d3.event.y;
+                    }
+                    function dragended(d) {
+                        if (!d3.event.active) simulation.alphaTarget(.03);
+                        d.fx = null;
+                        d.fy = null;
+                    }
+
+
+                </script>
+                <p>As you can see based on this Destiny 2 tends to mostly be about memes hence why it probably tends to
+                    have more upvotes in the short term but not in the long term since some of the memes are based on
+                    what is currently happening and probably won’t be as funny in the future. Meanwhile, Destiny the
+                    Game tends to be discussions and Suggestions for the game that can get foot traffic for many months
+                    and still receive constant upvotes. In the end, both Subreddits have their important use case and
+                    should be kept separate.</p>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
